@@ -220,6 +220,6 @@ document.querySelectorAll(".row").forEach(function(b){b.addEventListener("click"
 var fab=document.querySelector(".fab");function sc(){fab.classList.toggle("show",window.scrollY>700)}sc();window.addEventListener("scroll",sc,{passive:true});
 var f=document.getElementById("enq");
 f.addEventListener("submit",function(e){e.preventDefault();var b=document.getElementById("send"),ok=document.getElementById("ok"),bad=document.getElementById("bad");bad.hidden=true;b.disabled=true;b.textContent="Sending...";
-fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams(new FormData(f)).toString()}).then(function(r){if(!r.ok)throw 0;f.reset();ok.hidden=false;b.hidden=true}).catch(function(){bad.hidden=false;b.disabled=false;b.textContent="Send enquiry"})});
+fetch(f.getAttribute("action")||"/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams(new FormData(f)).toString()}).then(function(r){if(!r.ok)throw 0;f.reset();ok.hidden=false;b.hidden=true}).catch(function(err){console.error("Enquiry form failed",err);bad.hidden=false;b.disabled=false;b.textContent="Send enquiry"})});
 </script>
 </body></html>
